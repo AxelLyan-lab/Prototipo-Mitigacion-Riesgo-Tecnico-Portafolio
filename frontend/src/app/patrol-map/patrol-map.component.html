@@ -1,0 +1,96 @@
+<div class="dashboard-container">
+  
+  <!-- Panel de Control y Estado de Patrullaje -->
+  <div class="control-panel">
+    <div class="panel-header">
+      <img src="assets/logo.png" alt="Logo Carabineros" class="logo-carabineros" />
+      <h2 style="font-size: 1.1rem; line-height: 1.2;">Sistema de Patrullaje Inteligente<br><small style="font-size: 0.8rem; color: #555;">(Prototipo)</small></h2>
+    </div>
+    
+    <div *ngIf="errorMessage" style="background-color: #f44336; color: white; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
+      {{errorMessage}}
+    </div>
+
+    <button class="btn-add-patrol" (click)="addPatrol()" [disabled]="patrols.length >= 1" [style.opacity]="patrols.length >= 1 ? 0.5 : 1">+ Nueva Patrulla</button>
+    <hr />
+
+    <div class="patrols-list">
+      <h4 style="margin-bottom: 10px;">Patrullas Activas ({{patrols.length}})</h4>
+      <p *ngIf="patrols.length === 0" class="hint">No hay patrullas. Agrega una para comenzar.</p>
+      
+      <div 
+        *ngFor="let patrol of patrols" 
+        class="patrol-card"
+        [class.selected]="patrol.id === selectedPatrolId"
+        [style.borderLeftColor]="patrol.statusColor"
+        (click)="selectPatrol(patrol.id)"
+      >
+        <div class="status-indicator">
+          <div class="dot-pulse" [style.backgroundColor]="patrol.statusColor"></div>
+          <span class="status-text">
+            <strong [style.color]="patrol.statusColor">{{ patrol.id }}</strong><br/>
+            <small>{{ patrol.state }}</small>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <hr *ngIf="selectedPatrolId" />
+    
+    <div class="controls-section" *ngIf="selectedPatrolId">
+      <p>Control de Desplazamiento ({{selectedPatrolId}})</p>
+      <div class="hint" style="color: #4CAF50; font-weight: bold; font-size: 0.9rem !important; text-align: left; margin-bottom: 10px;">
+        👉 <b>Click Izquierdo</b> en el mapa para asignar destino.<br>
+        👉 <b>Click Derecho</b> en el mapa para cancelar destino.
+      </div>
+      <div class="d-pad">
+        <button class="btn-dir up" (click)="movePatrol(0.001, 0)">Norte</button>
+        <div class="row">
+          <button class="btn-dir left" (click)="movePatrol(0, -0.001)">Oeste</button>
+          <div class="center-pad"></div>
+          <button class="btn-dir right" (click)="movePatrol(0, 0.001)">Este</button>
+        </div>
+        <button class="btn-dir down" (click)="movePatrol(-0.001, 0)">Sur</button>
+      </div>
+      <p class="hint">También puedes <b>arrastrar</b> el ícono directamente en el mapa.</p>
+    </div>
+  </div>
+
+  <!-- Contenedor del Mapa y Tabla -->
+  <div class="main-view">
+    <div class="map-wrapper">
+      <div #mapContainer class="google-map"></div>
+    </div>
+
+    <!-- Tabla de Delitos (Base de Datos Real) -->
+    <div class="data-table-container">
+      <h3>Historial de Eventos Delictuales (Supabase Backend)</h3>
+      <p *ngIf="delitos.length === 0" style="color: #ff9800;">Cargando datos del backend...</p>
+      <div class="table-scroll" *ngIf="delitos.length > 0">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tipo de Delito</th>
+              <th>Coordenadas</th>
+              <th>Fecha y Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of delitos">
+              <td>{{d.id}}</td>
+              <td>
+                <span class="badge" [ngClass]="{'badge-red': d.tipo_delito.includes('violencia'), 'badge-orange': !d.tipo_delito.includes('violencia')}">
+                  {{d.tipo_delito}}
+                </span>
+              </td>
+              <td>{{d.coordenada?.coordinates[1] | number:'1.4-4'}}, {{d.coordenada?.coordinates[0] | number:'1.4-4'}}</td>
+              <td>{{d.fecha_hora | date:'short'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,255 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333333;
+}
+
+.control-panel {
+  width: 380px;
+  padding: 25px;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  border-left: 6px solid #006233; /* Verde Carabineros */
+  box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.logo-carabineros {
+  width: 50px;
+  height: auto;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: #006233;
+}
+
+.btn-add-patrol {
+  background: #006233;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.3s;
+}
+
+.btn-add-patrol:hover {
+  background: #004d28;
+}
+
+.patrols-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.patrols-list h4 {
+  color: #555;
+}
+
+.patrol-card {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  border-left: 4px solid gray;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.patrol-card:hover {
+  background: #f1f1f1;
+}
+
+.patrol-card.selected {
+  background: #e8f5e9;
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: scale(1.02);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dot-pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.status-text {
+  font-size: 0.95rem;
+}
+
+.status-text strong {
+  font-size: 1.1rem;
+}
+
+hr {
+  width: 100%;
+  border-color: #eee;
+  border-style: solid;
+}
+
+.controls-section {
+  margin-top: 10px;
+}
+
+.controls-section p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.d-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.d-pad .row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-dir {
+  background: #e0e0e0;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-dir:hover {
+  background: #d5d5d5;
+}
+
+.center-pad {
+  width: 60px;
+}
+
+.hint {
+  font-style: italic;
+  font-size: 0.8rem !important;
+  text-align: center;
+  color: #888;
+}
+
+.main-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-wrapper {
+  flex: 2; /* 66% de la altura para el mapa */
+  position: relative;
+}
+
+.google-map {
+  width: 100%;
+  height: 100%;
+}
+
+.data-table-container {
+  flex: 1; /* 33% de la altura para la tabla */
+  background-color: #ffffff;
+  border-top: 2px solid #ddd;
+  padding: 15px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.data-table-container h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.table-scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.styled-table thead tr {
+  background-color: #006233; /* Verde Carabineros */
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th {
+  padding: 12px 15px;
+  color: #ffffff;
+}
+
+.styled-table td {
+  padding: 12px 15px;
+  color: #333;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #006233;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-red {
+  background-color: #f44336;
+  color: white;
+}
+
+.badge-orange {
+  background-color: #ff9800;
+  color: white;
+}
